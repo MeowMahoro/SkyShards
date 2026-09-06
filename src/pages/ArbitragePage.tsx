@@ -193,19 +193,33 @@ const RowDetail: React.FC<{
                 <ShoppingCart className="w-4 h-4 text-purple-400" />
                 <h4 className="text-sm font-semibold text-white">Materials to buy</h4>
               </div>
-              <ul className="space-y-1">
-                {detail.materials.map((m) => (
-                  <li key={m.shardId} className="flex items-center justify-between gap-2 text-xs text-slate-300">
-                    <span className="inline-flex items-center gap-2 min-w-0">
-                      <img src={shardIconUrl(m.shardId)} alt="" className="w-4 h-4 object-contain flex-shrink-0" loading="lazy" />
-                      <span className="truncate">{m.name}</span>
-                      <span className="text-slate-500 whitespace-nowrap">× {formatNumber(m.quantity)}</span>
-                    </span>
-                    <span className="text-slate-400 whitespace-nowrap tabular-nums">
-                      {signedCoins(m.unitCost)} = {signedCoins(m.totalCost)}
-                    </span>
-                  </li>
-                ))}
+              <ul className="space-y-1.5">
+                {detail.materials.map((m) => {
+                  const rarity = context.data.shards[m.shardId]?.rarity;
+                  return (
+                    <li key={m.shardId} className="flex items-center gap-2 text-sm">
+                      <img
+                        src={shardIconUrl(m.shardId)}
+                        alt=""
+                        className="w-5 h-5 object-contain flex-shrink-0"
+                        loading="lazy"
+                      />
+                      <span
+                        className={`min-w-0 flex-1 truncate ${rarity ? getRarityColor(rarity) : "text-slate-300"}`}
+                        title={m.name}
+                      >
+                        {m.name}
+                      </span>
+                      <span className="flex items-baseline gap-1 whitespace-nowrap tabular-nums">
+                        <span className="text-slate-500">
+                          {formatNumber(m.quantity)} × {signedCoins(m.unitCost)}
+                        </span>
+                        <span className="text-slate-600">=</span>
+                        <span className="font-semibold text-white">{signedCoins(m.totalCost)}</span>
+                      </span>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </div>

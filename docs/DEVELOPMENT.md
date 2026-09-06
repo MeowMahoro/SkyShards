@@ -12,6 +12,7 @@
   2. 移除 Greenhouse 公告弹窗（原上游首次访问自动弹 `GreenhouseModal` 宣传外挂站 greenhouse.skyshards.com），原因是外挂站功能不需要在主站弹窗打扰，且曾遮挡套利页点击验证。删了 3 处引用 + 组件文件（见 §7）。
   3. 价格体系：DataService 单例缓存 `/bazaar` 响应，跨页面共享；套利页可用 forceRefresh 拉新。
   4. **Fusion path 与 calculator 的 Fusion Tree 同步**（2026-09-06）：套利行展开的 "Fusion path" 之前是内联自定义缩进列表，现已改用共享 `components/tree/RecipeTreeNode` 渲染；展开状态 hook `useTreeExpansion` 从 `FusionTreeView.tsx` 提取到 `tree/treeHelpers.tsx`，计算器侧改为 import 同 hook，两处完全同步（参见 §5.1、§7）。
+  5. **Materials to buy 列表与 Fusion path 视觉统一**（2026-09-06）：材料行图标 w-4→w-5、字号 text-xs→text-sm（与左列 RecipeTreeNode 节点一致），名称改按 rarity 品质色；右侧原先 `单价 = 总价`（如 `9.19K = 597.66K`）语义不明，改为完整算式 `数量 × 单价 = 总价`（如 `65 × 9.19K = 597.66K`），名称区域 flex-1+truncate 防挤出（ArbitragePage.tsx，参见 §5.4）。
 - 当前进度/下一步：套利主链路已验证通过，暂无阻塞项；待办见 §10。
 - 最近一次验证（2026-09-06）：`d:/Code/.playwright-cli/pwcheck.cjs` 真机点击 Molthorn 行，展开断言 `income/fusionPath/materials` 全 true，截图 `arb-detail.png` 已存；融合树同步后用一次性脚本断言 `expandAll/collapseAll/fusions/Bazaar` 全部 true，截图 `arb-detail-path.png` 确认 RecipeTreeNode 卡片树视觉与计算器 Fusion Tree 一致。
 - **2026-09-06 已发布**：代码推送至 `github.com/MeowMahoro/SkyShards`（master，本地 git 仓库，首个提交 a9fef01）；GitHub Pages 已上线 `https://meowmahoro.github.io/SkyShards/`（Actions workflow 部署，验证 200 + /SkyShards/ 资源前缀 + 深链兜底正常）。详见附录。
@@ -143,6 +144,7 @@ Hypixel `/bazaar` 每个 product 返回两侧订单簿：
 - RowDetail 顶栏有 `Make [quantity]` 输入、Sell mode 单价提示、Produces N × output。
 - 六张度量卡：Income（=sellUnit×produced）、Materials（materialsTotalCost）、Fusion fees（craftsNeeded×coinsPerCraft = craftCost）、Total cost、Profit、ROI。
 - 下两栏：**Fusion path**（共享 `RecipeTreeNode` 递归树 + 右上角 Expand/Collapse All + `min-w-[620px]` overflow-x-auto）+ **Materials to buy**（原料明细清单）。树的 ironManView=false，data.shards[*].rate 来自 parseData(buyCosts, rateAsCoinValue=true)，直接叶子显示 Bazaar 总买价，recipe 节点显示 `Nx Output = Ax Input1 + Bx Input2` 配方行（与计算器 FusionTreeView 的 bazaar 视图完全一致）。
+- Materials to buy 行渲染（ArbitragePage.tsx RowDetail）：`w-5 h-5` 图标 + `text-sm` 品质色名称（flex-1 truncate，title=全名）+ 右侧算式 `数量 × 单价 = 总价`（tabular-nums；数量/单价 slate-500，`=` slate-600，总价 white font-semibold）。与 Fusion path 同列卡内，视觉（图标/字号）与之对齐；quantity 来自 totalQuantities 累加，unitCost=context.buyCosts[shardId]，totalCost=unitCost×quantity。
 
 ### 5.5 页面其余
 - 顶部：说明文案、"Refresh prices"（`loadBazaarQuotes(true)` 后重扫）、Buy mode 切换（重扫）、Sell mode 切换（前端即时改排序）、Coins per fusion、Sort(Profit/ROI)、搜索。
