@@ -223,4 +223,4 @@ Hypixel `/bazaar` 每个 product 返回两侧订单簿：
 - 方式：GitHub Actions（`.github/workflows/pages.yml`），每次 push 到 `master` 自动 `lint? no` → `GITHUB_PAGES=true pnpm build` → upload artifact → deploy-pages。仓库 Settings→Pages 需 `Source: GitHub Actions`（由 `gh api ... -f build_type=workflow` 设置）。
 - 关键：子路径部署需要 `vite base=/SkyShards/`，由 workflow 环境变量 `GITHUB_PAGES=true` 触发（App.tsx L46-48）。
 - 运行时注意：bazaar 直连 `api.hypixel.net`（浏览器侧，无需 Key）；玩家档案导入走 `VITE_API_TARGET || https://api.skyshards.com` 官方后端。
-- 数据保鲜：上游靠 `update-fusions.yml` + repository_dispatch 拉 `SkyShards-Parser` release；本仓库复用该 workflow 需配 `secrets.PAT`（未配则停用/手动更新 `public/fusion-data.json`）。
+- 数据保鲜：`.github/workflows/update-fusions.yml` 已改造为**定时自动更新**（2026-09-06）——每 6h（cron `0 */6 * * *`）轮询 `Campionnn/SkyShards-Parser` latest release，有新版即下载 `fusion-data.json`/`fusion-properties.json` → commit → push（触发 pages 自动重新部署）；也支持 `workflow_dispatch` 手动触发。需要 `secrets.PAT`（**已配置**，Fine-grained：只授权 MeowMahoro/SkyShards，Contents Read and write）。注意：Actions 不允许在 `jobs.<id>.if` 里引用 secrets（曾致 workflow 无效，勿再写）；无变更时 skip push（勿学官方脚本无条件 push）。
