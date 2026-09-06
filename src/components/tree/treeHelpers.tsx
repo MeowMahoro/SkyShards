@@ -1,6 +1,65 @@
 import React from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
-import type { Data, InventoryRecipeTree, Recipe, Shard } from "../../types/types";
+import type { Data, InventoryRecipeTree, Recipe, RecipeTree, Shard } from "../../types/types";
+
+/**
+ * Shared expand/collapse state for a recipe tree, owned by the page that renders
+ * it (calculator Fusion Tree, arbitrage Fusion path). Initialises every recipe
+ * node expanded and resets whenever a new tree object arrives.
+ */
+export const useTreeExpansion = (tree: RecipeTree | null) => {
+  const [expandedStates, setExpandedStates] = React.useState<Map<string, boolean>>(new Map());
+  const [lastTreeHash, setLastTreeHash] = React.useState<string>("");
+
+  const initializeExpandedStates = (tree: RecipeTree, nodeId: string = "root"): Map<string, boolean> => {
+    const states = new Map<string, boolean>();
+    const traverse = (node: RecipeTree, id: string) => {
+      if (node.method === "recipe" && node.inputs) {
+        states.set(id, true);
+        node.inputs.forEach((input, index) => {
+          traverse(input, `${id}-${index}`);
+        });
+      }
+    };
+    traverse(tree, nodeId);
+    return states;
+  };
+
+  React.useEffect(() => {
+    if (tree) {
+      const treeHash = JSON.stringify(tree);
+      if (treeHash !== lastTreeHash) {
+        const initialStates = initializeExpandedStates(tree);
+        setExpandedStates(initialStates);
+        setLastTreeHash(treeHash);
+      }
+    }
+  }, [tree, lastTreeHash]);
+
+  const handleExpandAll = () => {
+    const newStates = new Map(expandedStates);
+    for (const key of newStates.keys()) {
+      newStates.set(key, true);
+    }
+    setExpandedStates(newStates);
+  };
+
+  const handleCollapseAll = () => {
+    const newStates = new Map(expandedStates);
+    for (const key of newStates.keys()) {
+      newStates.set(key, false);
+    }
+    setExpandedStates(newStates);
+  };
+
+  const handleNodeToggle = (nodeId: string) => {
+    const newStates = new Map(expandedStates);
+    newStates.set(nodeId, !newStates.get(nodeId));
+    setExpandedStates(newStates);
+  };
+
+  return { expandedStates, handleExpandAll, handleCollapseAll, handleNodeToggle };
+};
 
 /**
  * Non-component helpers used by both tree renderers. Kept out of shared.tsx so that

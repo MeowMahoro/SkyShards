@@ -11,8 +11,9 @@
   1. 套利功能（/arbitrage）：Bazaar 价扫描 → 127 个可融合成品按利润排名 → 点击行展开收支明细（Income/Materials/Fusion fees/Total cost/Profit/ROI 六卡 + Fusion path 树 + Materials to buy 原料清单）。真实浏览器验证通过（见 §8）。
   2. 移除 Greenhouse 公告弹窗（原上游首次访问自动弹 `GreenhouseModal` 宣传外挂站 greenhouse.skyshards.com），原因是外挂站功能不需要在主站弹窗打扰，且曾遮挡套利页点击验证。删了 3 处引用 + 组件文件（见 §7）。
   3. 价格体系：DataService 单例缓存 `/bazaar` 响应，跨页面共享；套利页可用 forceRefresh 拉新。
+  4. **Fusion path 与 calculator 的 Fusion Tree 同步**（2026-09-06）：套利行展开的 "Fusion path" 之前是内联自定义缩进列表，现已改用共享 `components/tree/RecipeTreeNode` 渲染；展开状态 hook `useTreeExpansion` 从 `FusionTreeView.tsx` 提取到 `tree/treeHelpers.tsx`，计算器侧改为 import 同 hook，两处完全同步（参见 §5.1、§7）。
 - 当前进度/下一步：套利主链路已验证通过，暂无阻塞项；待办见 §10。
-- 最近一次验证（2026-09-06）：`d:/Code/.playwright-cli/pwcheck.cjs` 真机点击 Molthorn 行，展开断言 `income/fusionPath/materials` 全 true，截图 `arb-detail.png` 已存。
+- 最近一次验证（2026-09-06）：`d:/Code/.playwright-cli/pwcheck.cjs` 真机点击 Molthorn 行，展开断言 `income/fusionPath/materials` 全 true，截图 `arb-detail.png` 已存；融合树同步后用一次性脚本断言 `expandAll/collapseAll/fusions/Bazaar` 全部 true，截图 `arb-detail-path.png` 确认 RecipeTreeNode 卡片树视觉与计算器 Fusion Tree 一致。
 - **2026-09-06 已发布**：代码推送至 `github.com/MeowMahoro/SkyShards`（master，本地 git 仓库，首个提交 a9fef01）；GitHub Pages 已上线 `https://meowmahoro.github.io/SkyShards/`（Actions workflow 部署，验证 200 + /SkyShards/ 资源前缀 + 深链兜底正常）。详见附录。
 
 ---
@@ -115,7 +116,8 @@ Hypixel `/bazaar` 每个 product 返回两侧订单簿：
 ### 5.1 入口与文件
 - 页面：`src/pages/ArbitragePage.tsx`（路由 `/arbitrage`，App.tsx L88-95；导航 Navigation.tsx L54）
 - 引擎：`src/services/arbitrageService.ts`
-- 树视图复用：`src/components/results/FusionTreeView.tsx`
+- 树渲染：`src/components/tree/RecipeTreeNode.tsx`（与计算器 FusionTreeView 共用的节点渲染），展开状态 hook `useTreeExpansion` 在 `tree/treeHelpers.tsx`，从 `tree/index.ts` 导出；`components/results/FusionTreeView.tsx` 改为 import 同 hook。
+  > 注：套利行展开的 "Fusion path" 与计算器 "Fusion Tree" 现在使用同一渲染器，仅 ironManView、上下文 props、按钮组（计算器有 CopyTree/Alternatives 等）不同。
 
 ### 5.2 概念与类型（arbitrageService.ts）
 - `BuyMode = "instant" | "order"`，`SellMode = "instant" | "order"`（各有 label 常量）。
@@ -140,7 +142,7 @@ Hypixel `/bazaar` 每个 product 返回两侧订单簿：
 - UI：点击行 `setExpandedId(row.shard.id)`（互斥展开，同一时间只展开一行，ArbitragePage.tsx L507-556）；展开时 `RowDetail` 组件 mount 后用 `setTimeout 0` 把建树推迟一帧，让展开"即时感"。
 - RowDetail 顶栏有 `Make [quantity]` 输入、Sell mode 单价提示、Produces N × output。
 - 六张度量卡：Income（=sellUnit×produced）、Materials（materialsTotalCost）、Fusion fees（craftsNeeded×coinsPerCraft = craftCost）、Total cost、Profit、ROI。
-- 下两栏：**Fusion path**（FusionTreeView 递归树）+ **Materials to buy**（原料明细清单）。
+- 下两栏：**Fusion path**（共享 `RecipeTreeNode` 递归树 + 右上角 Expand/Collapse All + `min-w-[620px]` overflow-x-auto）+ **Materials to buy**（原料明细清单）。树的 ironManView=false，data.shards[*].rate 来自 parseData(buyCosts, rateAsCoinValue=true)，直接叶子显示 Bazaar 总买价，recipe 节点显示 `Nx Output = Ax Input1 + Bx Input2` 配方行（与计算器 FusionTreeView 的 bazaar 视图完全一致）。
 
 ### 5.5 页面其余
 - 顶部：说明文案、"Refresh prices"（`loadBazaarQuotes(true)` 后重扫）、Buy mode 切换（重扫）、Sell mode 切换（前端即时改排序）、Coins per fusion、Sort(Profit/ROI)、搜索。
@@ -166,7 +168,12 @@ Hypixel `/bazaar` 每个 product 返回两侧订单簿：
 1. **移除 GreenhouseModal 公告弹窗**：`src/components/layout/Layout.tsx`（删 import/useEffect/state/handler/JSX）、`src/components/modals/index.ts`（删导出）、删除 `src/components/modals/GreenhouseModal.tsx`、`src/main.tsx`（VALID_KEYS 删 `greenhouse_modal_seen`）。导航栏 Greenhouses 外链按钮保留。
 2. 新增套利功能（推断为本地新增，上游无 arbitrage 痕迹）：`src/pages/ArbitragePage.tsx`、`src/services/arbitrageService.ts`；改动 `App.tsx`(+路由)、`Navigation.tsx`(+入口)、`usePageTitle`(/arbitrage 标题)、`types/`、可能涉及 `dataService.ts`/`hypixelApiTypes.ts` 的 bazaar quote 扩展。
 3. dev 辅助文件：`start-dev.vbs`、`run-dev.cmd`（如存在）、`dev.log`。
-4. **部署适配（2026-09-06，为发布到 MeowMahoro/SkyShards 的 GitHub Pages 子路径）**：
+4. **Fusion path 与 Fusion Tree 渲染同步（2026-09-06）**：
+   - `src/components/tree/treeHelpers.tsx` 新增并 `export const useTreeExpansion`：管理 expandedStates Map + Expand All / Collapse All / handleNodeToggle，按 `JSON.stringify(tree)` 哈希在树变化时自动重新初始化。
+   - `src/components/tree/index.ts` 增加 `export { useTreeExpansion }`。
+   - `src/components/results/FusionTreeView.tsx` 删除文件内私有 `useTreeExpansion`，改为从 `../tree` 引入共享 hook；CopyTree/Alternatives/RecipeOverrideManager 等计算器专属逻辑保留。
+   - `src/pages/ArbitragePage.tsx` 删除内联自定义 `FusionTreeView`（约 48 行），导入 `{ RecipeTreeNode, useTreeExpansion }`；RowDetail 调用 `useTreeExpansion(detail?.tree ?? null)`，"Fusion path" 面板改用 `<RecipeTreeNode tree={detail.tree} data={context.data} isTopLevel totalShardsProduced={detail.produced} nodeId="root" … ironManView={false} />`，外层 `overflow-x-auto` + `min-w-[620px]`，右上角加 Expand/Collapse All。
+5. **部署适配（2026-09-06，为发布到 MeowMahoro/SkyShards 的 GitHub Pages 子路径）**：
    - 删除 `public/CNAME`（原为官方 `skyshards.com`，绑定他人域名会导致 Pages 失败）；
    - `public/404.html` 的 SPA 回跳由 `replace("/")` 改为 `replace("./")`（相对路径，根域/子路径通用）。
    - 新增 `.github/workflows/pages.yml`（GitHub Actions Pages：`GITHUB_PAGES=true` 构建 + upload/deploy）。

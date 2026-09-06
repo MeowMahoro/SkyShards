@@ -13,7 +13,7 @@ import {
   TrendingUp,
   Wallet,
 } from "lucide-react";
-import type { RecipeTree } from "../types/types";
+import { RecipeTreeNode, useTreeExpansion } from "../components/tree";
 import {
   formatLargeNumber,
   formatNumber,
@@ -44,55 +44,6 @@ const formatMargin = (margin: number): string => `${(margin * 100).toFixed(1)}%`
 
 const profitableColor = (value: number): string => (value >= 0 ? "text-green-400" : "text-red-400");
 
-/** Compact indented fusion tree with buy costs on the leaves. */
-const FusionTreeView: React.FC<{
-  tree: RecipeTree;
-  data: ArbitrageScanResult["context"]["data"];
-  buyCosts: Record<string, number>;
-}> = ({ tree, data, buyCosts }) => {
-  const renderNode = (node: RecipeTree, depth: number): React.ReactNode => {
-    const shard = data.shards[node.shard];
-    const padding = depth * 20;
-
-    if (node.method === "direct") {
-      const unitCost = buyCosts[node.shard];
-      return (
-        <li key={`${node.shard}-${depth}`} className="text-slate-300 text-xs py-1" style={{ paddingLeft: padding }}>
-          <span className="inline-flex items-center gap-2">
-            <img src={shardIconUrl(node.shard)} alt="" className="w-4 h-4 object-contain flex-shrink-0" loading="lazy" />
-            <span className="text-purple-300 font-medium">Buy</span>
-            <span>{formatNumber(node.quantity)}×</span>
-            <span className={getRarityColor(shard.rarity)}>{shard.name}</span>
-            {unitCost !== undefined && <span className="text-slate-500">@ {signedCoins(unitCost)}</span>}
-          </span>
-        </li>
-      );
-    }
-
-    if (node.method === "recipe") {
-      const crafts = node.craftsNeeded ?? 0;
-      return (
-        <li key={`${node.shard}-${depth}`} className="text-xs py-1" style={{ paddingLeft: padding }}>
-          <div className="flex items-center gap-2">
-            <img src={shardIconUrl(node.shard)} alt="" className="w-4 h-4 object-contain flex-shrink-0" loading="lazy" />
-            <span className="text-amber-300 font-medium">{crafts > 0 ? `${formatNumber(crafts)}× craft` : "Craft"}</span>
-            <span className={getRarityColor(shard.rarity)}>{shard.name}</span>
-            <span className="text-slate-500">→ {node.recipe.outputQuantity} out / craft</span>
-          </div>
-          <ul className="space-y-0.5">
-            {node.inputs.map((input) => renderNode(input, depth + 1))}
-          </ul>
-        </li>
-      );
-    }
-
-    // Cycle nodes cannot occur here (crocodile level is always 0 in arbitrage).
-    return null;
-  };
-
-  return <ul className="space-y-0.5">{renderNode(tree, 0)}</ul>;
-};
-
 const RowDetail: React.FC<{
   row: ArbitrageRow;
   scan: ArbitrageScanResult;
@@ -103,6 +54,8 @@ const RowDetail: React.FC<{
   const [quantity, setQuantity] = useState("10");
   const [detail, setDetail] = useState<ArbitrageDetail | null>(null);
   const [error, setError] = useState<string | null>(null);
+  // Same expansion state the calculator's Fusion Tree uses, so both views stay in sync.
+  const { expandedStates, handleExpandAll, handleCollapseAll, handleNodeToggle } = useTreeExpansion(detail?.tree ?? null);
 
   const quantityNum = Math.max(1, Math.floor(Number(quantity) || 1));
   const sellUnit = sellMode === "instant" ? row.quote.instantSell : row.quote.orderSell;
@@ -200,11 +153,40 @@ const RowDetail: React.FC<{
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
             <div className="bg-slate-800 border border-slate-600/60 rounded-md p-3">
-              <div className="flex items-center gap-2 mb-2">
-                <Flame className="w-4 h-4 text-amber-400" />
-                <h4 className="text-sm font-semibold text-white">Fusion path</h4>
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
+                <div className="flex items-center gap-2">
+                  <Flame className="w-4 h-4 text-amber-400" />
+                  <h4 className="text-sm font-semibold text-white">Fusion path</h4>
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={handleExpandAll}
+                    className="px-2 py-1 font-medium rounded-md text-xs transition-colors duration-200 cursor-pointer bg-green-500/20 hover:bg-green-500/30 text-green-300 border border-green-500/20 hover:border-green-500/30"
+                  >
+                    Expand All
+                  </button>
+                  <button
+                    onClick={handleCollapseAll}
+                    className="px-2 py-1 font-medium rounded-md text-xs transition-colors duration-200 cursor-pointer bg-orange-500/20 hover:bg-orange-500/30 text-orange-300 border border-orange-500/20 hover:border-orange-500/30"
+                  >
+                    Collapse All
+                  </button>
+                </div>
               </div>
-              <FusionTreeView tree={detail.tree} data={context.data} buyCosts={context.buyCosts} />
+              <div className="w-full overflow-x-auto scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-slate-900">
+                <div className="min-w-[620px]">
+                  <RecipeTreeNode
+                    tree={detail.tree}
+                    data={context.data}
+                    isTopLevel={true}
+                    totalShardsProduced={detail.produced}
+                    nodeId="root"
+                    expandedStates={expandedStates}
+                    onToggle={handleNodeToggle}
+                    ironManView={false}
+                  />
+                </div>
+              </div>
             </div>
             <div className="bg-slate-800 border border-slate-600/60 rounded-md p-3">
               <div className="flex items-center gap-2 mb-2">
