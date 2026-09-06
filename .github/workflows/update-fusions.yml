@@ -1,11 +1,19 @@
 name: Update Fusion Data
 
 on:
+  # Forks are not dispatched by the upstream repo, so poll for new parser
+  # releases on a schedule instead. Every 6h (UTC). Can also be run manually.
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
   repository_dispatch:
     types: [update-fusion-data]
 
 jobs:
   update-fusion-data:
+    # Only meaningful once a PAT secret is configured (skip otherwise to avoid
+    # failing every scheduled run).
+    if: ${{ secrets.PAT != '' }}
     runs-on: ubuntu-latest
     steps:
       - name: Set target branch
