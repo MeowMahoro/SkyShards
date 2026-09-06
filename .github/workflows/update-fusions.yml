@@ -9,11 +9,11 @@ on:
   repository_dispatch:
     types: [update-fusion-data]
 
+# NOTE: cannot gate this job on secrets.PAT at job level (Actions forbids secrets
+# in `jobs.<id>.if`). Without the secret the checkout step fails loudly, so only
+# enable the schedule after adding the `PAT` repository secret.
 jobs:
   update-fusion-data:
-    # Only meaningful once a PAT secret is configured (skip otherwise to avoid
-    # failing every scheduled run).
-    if: ${{ secrets.PAT != '' }}
     runs-on: ubuntu-latest
     steps:
       - name: Set target branch

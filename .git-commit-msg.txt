@@ -1,0 +1,4 @@
+修复：CI 与 update-fusions workflow 红点
+
+- ArbitragePage.tsx：删除多余 eslint-disable 指令（react-hooks 规则已完整，禁用导致 --max-warnings 0 失败）
+- update-fusions.yml：移除 job 级 if 中的 secrets 引用（Actions 语法不允许，曾致 workflow 无效）

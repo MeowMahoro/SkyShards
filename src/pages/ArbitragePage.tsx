@@ -128,7 +128,6 @@ const RowDetail: React.FC<{
       cancelled = true;
       window.clearTimeout(timer);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [context, row.shard.id, quantityNum]);
 
   const income = sellUnit !== undefined ? sellUnit * (detail?.produced ?? 0) : undefined;
