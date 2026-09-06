@@ -1,0 +1,1380 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`assignQuantities — cycle case > pins the cycle tree — net-negative 1`] = `
+{
+  "totalCrafts": 78,
+  "tree": [
+    "C1 cycle qty=100 crafts=42 mult=1.20000",
+    "  step C4 = C1+C1 x1",
+    "  step C1 = C4+U8 x2 reptile",
+    "  inputRecipe:",
+    "    C4 direct qty=5",
+    "  cycleInputs:",
+    "    U8 recipe qty=42 crafts=18 [C11+C35 x2 reptile]",
+    "      C11 direct qty=90",
+    "      C35 recipe qty=36 crafts=18 [C11+C23 x2]",
+    "        C11 direct qty=90",
+    "        C23 direct qty=36",
+  ],
+}
+`;
+
+exports[`assignQuantities — cycle case > pins the cycle tree — net-positive 1`] = `
+{
+  "totalCrafts": 585,
+  "tree": [
+    "C1 cycle qty=100 crafts=250 mult=1.20000",
+    "  step C4 = C1+C2 x1",
+    "  step C1 = C4+U8 x2 reptile",
+    "  inputRecipe:",
+    "    C4 direct qty=5",
+    "  cycleInputs:",
+    "    C2 recipe qty=250 crafts=125 [C11+U20 x2]",
+    "      C11 direct qty=625",
+    "      U20 direct qty=625",
+    "    U8 recipe qty=250 crafts=105 [C11+C35 x2 reptile]",
+    "      C11 direct qty=525",
+    "      C35 recipe qty=210 crafts=105 [C11+C23 x2]",
+    "        C11 direct qty=525",
+    "        C23 direct qty=210",
+  ],
+}
+`;
+
+exports[`buildRecipeTree + assignQuantities > pins the tree and quantities for C4 1`] = `
+{
+  "totalCrafts": 0,
+  "tree": [
+    "C4 direct qty=10",
+  ],
+}
+`;
+
+exports[`buildRecipeTree + assignQuantities > pins the tree and quantities for C67 1`] = `
+{
+  "totalCrafts": 54,
+  "tree": [
+    "C67 recipe qty=10 crafts=9 [C64+U59 x1 reptile]",
+    "  C64 recipe qty=45 crafts=45 [C61+R6 x1]",
+    "    C61 direct qty=225",
+    "    R6 direct qty=225",
+    "  U59 direct qty=18",
+  ],
+}
+`;
+
+exports[`buildRecipeTree + assignQuantities > pins the tree and quantities for R94 1`] = `
+{
+  "totalCrafts": 9,
+  "tree": [
+    "R94 recipe qty=10 crafts=9 [R92+L4 x1 reptile]",
+    "  R92 direct qty=18",
+    "  L4 direct qty=9",
+  ],
+}
+`;
+
+exports[`buildRecipeTree + assignQuantities > pins the tree and quantities for U57 1`] = `
+{
+  "totalCrafts": 0,
+  "tree": [
+    "U57 direct qty=10",
+  ],
+}
+`;
+
+exports[`computeMinCosts > pins the cost of every shard — coinValue 1`] = `
+"C1 10892.5 <- C37+U20 x2
+C10 5952.00 <- direct
+C11 909.000 <- direct
+C12 1437.00 <- direct
+C13 20576.0 <- direct
+C14 10090.0 <- C11+C11 x1
+C15 1515.00 <- direct
+C16 17652.5 <- C10+C11 x2
+C17 3704.00 <- direct
+C18 13120.0 <- C11+C15 x1
+C19 66667.0 <- direct
+C2 5152.50 <- C11+U20 x2
+C20 8772.00 <- direct
+C21 1515.00 <- direct
+C22 909476 <- C21+L4 x1 reptile
+C23 8333.00 <- direct
+C24 26042.0 <- direct
+C25 50000.0 <- direct
+C26 1000.00 <- direct
+C27 1852.00 <- direct
+C28 20576.0 <- direct
+C29 1852.00 <- direct
+C3 5820.00 <- C6+U20 x2
+C30 1333.00 <- direct
+C31 108425 <- C11+C28 x1
+C32 3410.00 <- direct
+C33 3333.00 <- direct
+C34 27772.5 <- C11+U46 x2
+C35 11105.5 <- C11+C23 x2
+C36 1302.00 <- direct
+C37 3205.00 <- direct
+C38 6061.00 <- direct
+C39 12055.0 <- C11+C36 x1
+C4 4630.00 <- direct
+C40 21263.0 <- direct
+C41 7143.00 <- direct
+C42 10256.0 <- direct
+C43 5952.00 <- direct
+C44 1667.00 <- direct
+C45 56825.0 <- C11+C42 x1
+C46 12500.0 <- direct
+C47 2899.00 <- direct
+C49 5208.00 <- direct
+C5 952.000 <- direct
+C52 8333.00 <- direct
+C55 8333.00 <- direct
+C56 1250.00 <- direct
+C58 38462.0 <- direct
+C6 1176.00 <- direct
+C61 3472.00 <- direct
+C64 22905.0 <- C11+C61 x1
+C67 120070 <- C11+C64 x1
+C7 9259.00 <- direct
+C8 10520.0 <- C5+C5 x1
+C9 1244.00 <- direct
+E1 16870.0 <- E34+L27 x2
+E10 937233 <- E7+L4 x1 reptile
+E11 40418.0 <- R53+E26 x2 reptile
+E12 24330.0 <- C11+E3 x1
+E13 20576.0 <- direct
+E14 19608.0 <- direct
+E15 127195 <- C11+E12 x1
+E16 51060.0 <- R79+E33 x2
+E17 44761.0 <- C11+E14 x1
+E18 2222.00 <- direct
+E19 15015.0 <- C4+E33 x2
+E2 14785.5 <- E26+L27 x2 reptile
+E20 121655 <- direct
+E21 16655.0 <- C11+E18 x1
+E22 943288 <- R10+E10 x2 reptile
+E23 51542.5 <- R74+R83 x2
+E24 88820.0 <- C11+E21 x1
+E25 1.15961e+6 <- E23+L4 x1 reptile
+E26 8333.00 <- direct
+E27 11765.0 <- direct
+E28 28440.0 <- U46+E33 x2
+E3 9392.50 <- E33+L27 x2
+E30 75920.0 <- R6+E6 x2 reptile
+E31 20576.0 <- direct
+E32 49251.0 <- E11+E26 x2 reptile
+E33 1176.00 <- direct
+E34 4167.00 <- direct
+E35 17166.0 <- E26+E26 x2 reptile
+E36 6380.00 <- E33+E33 x2
+E37 20576.0 <- direct
+E39 11425.0 <- C11+E33 x1
+E4 21990.0 <- U25+R6 x2
+E42 62670.0 <- C11+E39 x1
+E43 12500.0 <- direct
+E44 22211.0 <- C11+E26 x1 reptile
+E45 27778.0 <- direct
+E46 964401 <- E43+L4 x1 reptile
+E47 116600 <- C11+E44 x1
+E48 10417.0 <- direct
+E49 953986 <- E48+L4 x1 reptile
+E5 19938.5 <- C35+E26 x2 reptile
+E51 41667.0 <- direct
+E52 166667 <- direct
+E54 41667.0 <- direct
+E57 58343.0 <- direct
+E58 6944.00 <- direct
+E6 72870.0 <- R6+R45 x2 reptile
+E60 29036.0 <- direct
+E63 54072.5 <- R77+L27 x2
+E66 125000 <- direct
+E7 17666.0 <- R10+R47 x2
+E8 35116.0 <- C11+E2 x1
+E9 31262.0 <- R6+R54 x2 reptile
+L1 61975.0 <- E3+L28 x2
+L10 953899 <- L4+L8 x1 reptile
+L11 58084.0 <- E26+E32 x2 reptile
+L12 18840.0 <- R15+E33 x2
+L13 103380 <- E13+E37 x2
+L14 4902.00 <- direct
+L15 99745.0 <- C11+L12 x1
+L17 30055.0 <- C11+L14 x1
+L18 499225 <- L15+L15 x2
+L2 22147.5 <- E3+L14 x2
+L20 252135 <- C11+L15 x2
+L21 66667.0 <- direct
+L22 400000 <- direct
+L23 8929.00 <- direct
+L24 274863 <- U46+L15 x2
+L25 134103 <- E16+L27 x2
+L26 50190.0 <- C11+L23 x1
+L27 2381.00 <- direct
+L28 20833.0 <- direct
+L29 34832.0 <- E26+L8 x2 reptile
+L3 15845.0 <- E3+L27 x2
+L30 200000 <- direct
+L31 31452.5 <- U46+L27 x2
+L32 26155.0 <- C30+L23 x2
+L33 200000 <- direct
+L34 85083.8 <- L27+L31 x2
+L35 1.03268e+6 <- L4+L32 x1 reptile
+L36 749863 <- L15+L30 x2
+L38 154356 <- R85+E23 x2
+L39 749863 <- L15+L33 x2
+L4 900901 <- direct
+L40 49020.0 <- direct
+L41 131275 <- L32+L32 x2
+L42 3.74981e+6 <- L36+L39 x2
+L44 344533 <- L3+L41 x2
+L45 1.17936e+6 <- direct
+L46 66667.0 <- direct
+L47 75209.0 <- C11+L29 x1 reptile
+L49 100000 <- direct
+L5 49840.0 <- C11+L2 x1
+L54 1.11111e+6 <- direct
+L57 5.68751e+6 <- direct
+L6 79360.0 <- E30+E33 x2 reptile
+L60 116667 <- direct
+L7 954206 <- E22+E34 x2 reptile
+L8 25999.0 <- E26+E35 x2 reptile
+L9 37235.0 <- C11+L3 x1
+R1 8995.00 <- R10+E33 x2
+R10 2222.00 <- direct
+R11 12500.0 <- direct
+R13 803855 <- C10+R60 x2
+R15 6160.00 <- C9+R6 x2
+R16 16655.0 <- C11+R10 x1
+R18 2083.00 <- direct
+R19 185185 <- direct
+R2 15051.0 <- R5+E33 x2
+R21 2222.00 <- direct
+R22 21332.5 <- C10+L27 x2
+R23 13889.0 <- direct
+R24 16655.0 <- C11+R21 x1
+R25 166667 <- direct
+R26 74990.0 <- C11+R23 x1
+R27 88820.0 <- C11+R24 x1
+R29 13889.0 <- direct
+R3 5990.00 <- R6+E33 x2
+R30 18450.0 <- R6+R15 x2
+R31 4167.00 <- direct
+R32 50000.0 <- direct
+R33 18415.0 <- C6+U6 x2
+R34 50670.0 <- R6+R79 x2
+R35 255545 <- C11+R32 x1
+R36 1894.00 <- direct
+R37 333333 <- direct
+R38 21450.0 <- direct
+R39 1462.00 <- direct
+R4 21820.0 <- U20+U25 x2
+R40 909211 <- R39+L4 x1 reptile
+R42 12855.0 <- C11+R39 x1
+R43 29330.0 <- U40+R10 x2
+R44 4762.00 <- direct
+R45 69820.0 <- C11+R42 x1
+R46 163395 <- C45+C55 x2
+R47 11611.0 <- U11+R10 x2
+R49 14625.0 <- C4+R6 x2
+R5 11611.0 <- U11+R10 x2
+R50 5208.00 <- direct
+R51 49477.5 <- C6+R33 x2
+R52 13857.5 <- C6+E34 x2
+R53 31585.0 <- C11+R50 x1
+R54 28212.0 <- R6+R9 x2 reptile
+R55 74832.5 <- C11+R52 x1
+R56 15152.0 <- direct
+R57 61969.0 <- C11+R54 x1 reptile
+R58 28050.0 <- U46+R6 x2
+R59 13889.0 <- direct
+R6 1020.00 <- direct
+R60 315390 <- C11+R57 x1
+R61 971346 <- R59+L4 x1 reptile
+R62 230143 <- U69+L26 x2
+R63 54484.0 <- direct
+R64 145795 <- C11+R58 x1
+R65 14225.0 <- U91+R10 x2
+R66 83333.0 <- direct
+R67 16667.0 <- direct
+R68 74990.0 <- C11+R59 x1
+R69 55556.0 <- direct
+R7 23535.0 <- C11+R1 x1
+R70 132880 <- U79+R54 x2 reptile
+R72 27778.0 <- direct
+R73 83333.0 <- direct
+R74 10417.0 <- direct
+R75 22222.0 <- direct
+R76 41667.0 <- direct
+R77 19048.0 <- direct
+R78 26667.0 <- direct
+R79 19048.0 <- direct
+R8 13985.5 <- C35+U20 x2 reptile
+R80 13889.0 <- direct
+R81 49989.0 <- C11+R75 x1 reptile
+R82 16667.0 <- direct
+R83 10000.0 <- direct
+R84 255490 <- C11+R81 x1
+R85 10000.0 <- direct
+R86 33333.0 <- direct
+R87 951901 <- R85+L4 x1 reptile
+R88 10000.0 <- direct
+R89 10000.0 <- direct
+R9 25162.0 <- U21+R6 x2 reptile
+R91 55545.0 <- C11+R88 x1
+R92 41667.0 <- direct
+R94 985235 <- R92+L4 x1 reptile
+R95 16667.0 <- direct
+R97 10000.0 <- direct
+U1 11220.0 <- U91+R6 x2
+U10 27985.0 <- C11+U1 x1
+U100 20576.0 <- direct
+U103 20576.0 <- direct
+U106 1.00478e+6 <- U103+L4 x1 reptile
+U11 5556.00 <- direct
+U12 1488.00 <- direct
+U14 2899.00 <- direct
+U15 1462.00 <- direct
+U16 66667.0 <- direct
+U17 20040.0 <- C11+U14 x1
+U18 1366.00 <- direct
+U19 20576.0 <- direct
+U2 5430.00 <- U20+R6 x2
+U20 952.000 <- direct
+U21 22112.0 <- U9+R6 x2 reptile
+U22 20576.0 <- direct
+U23 5556.00 <- direct
+U24 12375.0 <- C11+U18 x1
+U25 7576.00 <- direct
+U26 16657.0 <- C11+U23 x1
+U27 5376.00 <- direct
+U28 333333 <- direct
+U29 28736.0 <- direct
+U3 6465.00 <- U18+R6 x2
+U30 2083.00 <- direct
+U31 7576.00 <- direct
+U32 3472.00 <- direct
+U33 1754.00 <- direct
+U34 27880.0 <- U20+U46 x2
+U36 1773.00 <- direct
+U38 1667.00 <- direct
+U39 8606.00 <- U11+R6 x2
+U4 333333 <- direct
+U40 9310.00 <- C36+R10 x2
+U41 13158.0 <- direct
+U42 13889.0 <- direct
+U43 14815.0 <- direct
+U44 71335.0 <- C11+U41 x1
+U45 8333.00 <- direct
+U46 10000.0 <- direct
+U47 943566 <- U45+L4 x1 reptile
+U48 26667.0 <- direct
+U49 8889.00 <- direct
+U5 7402.50 <- C11+C27 x2
+U50 4444.00 <- direct
+U51 12500.0 <- direct
+U52 23810.0 <- direct
+U53 10417.0 <- direct
+U55 10000.0 <- direct
+U56 8333.00 <- direct
+U57 333333 <- direct
+U58 14286.0 <- direct
+U59 3682.00 <- direct
+U6 5990.00 <- C6+R6 x2
+U60 14410.0 <- C11+U36 x1
+U61 16667.0 <- direct
+U62 1250.00 <- direct
+U63 77595.0 <- C11+U60 x1
+U64 22222.0 <- direct
+U65 5556.00 <- direct
+U67 35175.0 <- C11+U43 x1
+U68 1250.00 <- direct
+U69 41667.0 <- direct
+U7 18320.0 <- C6+C10 x2
+U70 908151 <- U68+L4 x1 reptile
+U71 5556.00 <- direct
+U72 41667.0 <- direct
+U75 41667.0 <- direct
+U76 66667.0 <- direct
+U78 213880 <- C11+U75 x1
+U79 41667.0 <- direct
+U8 13878.0 <- C11+C35 x2 reptile
+U82 333333 <- direct
+U85 333333 <- direct
+U88 50000.0 <- direct
+U9 19062.0 <- C10+U59 x2 reptile
+U91 3268.00 <- direct
+U94 20576.0 <- direct
+U97 20576.0 <- direct"
+`;
+
+exports[`computeMinCosts > pins the cost of every shard — default 1`] = `
+"C1 0.0103938 <- C37+U20 x2
+C10 0.00595238 <- direct
+C11 0.000909091 <- direct
+C12 0.00143678 <- direct
+C13 0.0205761 <- direct
+C14 0.00909091 <- C11+C11 x1
+C15 0.00151515 <- direct
+C16 0.0171537 <- C10+C11 x2
+C17 0.00370370 <- direct
+C18 0.0121212 <- C11+C15 x1
+C19 0.0666667 <- direct
+C2 0.00465368 <- C11+U20 x2
+C20 0.00877193 <- direct
+C21 0.00151515 <- direct
+C22 0.908477 <- C21+L4 x1 reptile
+C23 0.00833333 <- direct
+C24 0.0260417 <- direct
+C25 0.0500000 <- direct
+C26 0.00100000 <- direct
+C27 0.00185185 <- direct
+C28 0.0205761 <- direct
+C29 0.00185185 <- direct
+C3 0.00532213 <- C6+U20 x2
+C30 0.00133333 <- direct
+C31 0.107426 <- C11+C28 x1
+C32 0.00341006 <- direct
+C33 0.00333333 <- direct
+C34 0.0272727 <- C11+U46 x2
+C35 0.0106061 <- C11+C23 x2
+C36 0.00130208 <- direct
+C37 0.00320513 <- direct
+C38 0.00606061 <- direct
+C39 0.0110559 <- C11+C36 x1
+C4 0.00462963 <- direct
+C40 0.0205711 <- C11+C37 x1
+C41 0.00714286 <- direct
+C42 0.0102564 <- direct
+C43 0.00595238 <- direct
+C44 0.00166667 <- direct
+C45 0.0558275 <- C11+C42 x1
+C46 0.0125000 <- direct
+C47 0.00289855 <- direct
+C49 0.00520833 <- direct
+C5 0.000952381 <- direct
+C52 0.00833333 <- direct
+C55 0.00833333 <- direct
+C56 0.00125000 <- direct
+C58 0.0384615 <- direct
+C6 0.00117647 <- direct
+C61 0.00347222 <- direct
+C64 0.0219066 <- C11+C61 x1
+C67 0.114078 <- C11+C64 x1
+C7 0.00925926 <- direct
+C8 0.00952381 <- C5+C5 x1
+C9 0.00124378 <- direct
+E1 0.0163690 <- E34+L27 x2
+E10 0.934234 <- E7+L4 x1 reptile
+E11 0.0389205 <- R53+E26 x2 reptile
+E12 0.0223326 <- C11+E3 x1
+E13 0.0205761 <- direct
+E14 0.0196078 <- direct
+E15 0.116208 <- C11+E12 x1
+E16 0.0505602 <- R79+E33 x2
+E17 0.0437611 <- C11+E14 x1
+E18 0.00222222 <- direct
+E19 0.0145153 <- C4+E33 x2
+E2 0.0142857 <- E26+L27 x2 reptile
+E20 0.121655 <- direct
+E21 0.0156566 <- C11+E18 x1
+E22 0.939790 <- R10+E10 x2 reptile
+E23 0.0510417 <- R74+R83 x2
+E24 0.0828283 <- C11+E21 x1
+E25 1.15611 <- E23+L4 x1 reptile
+E26 0.00833333 <- direct
+E27 0.0117647 <- direct
+E28 0.0279412 <- U46+E33 x2
+E3 0.00889356 <- E33+L27 x2
+E30 0.0689245 <- R6+E6 x2 reptile
+E31 0.0205761 <- direct
+E32 0.0472538 <- E11+E26 x2 reptile
+E33 0.00117647 <- direct
+E34 0.00416667 <- direct
+E35 0.0166667 <- E26+E26 x2 reptile
+E36 0.00588235 <- E33+E33 x2
+E37 0.0205761 <- direct
+E39 0.0104278 <- C11+E33 x1
+E4 0.0214904 <- U25+R6 x2
+E42 0.0566845 <- C11+E39 x1
+E43 0.0125000 <- direct
+E44 0.0212121 <- C11+E26 x1 reptile
+E45 0.0277778 <- direct
+E46 0.963401 <- E43+L4 x1 reptile
+E47 0.110606 <- C11+E44 x1
+E48 0.0104167 <- direct
+E49 0.952984 <- E48+L4 x1 reptile
+E5 0.0189394 <- C35+E26 x2 reptile
+E51 0.0416667 <- direct
+E52 0.166667 <- direct
+E54 0.0416667 <- direct
+E57 0.0583431 <- direct
+E58 0.00694444 <- direct
+E6 0.0663735 <- R6+R45 x2 reptile
+E60 0.0290360 <- direct
+E63 0.0535714 <- R77+L27 x2
+E66 0.125000 <- direct
+E7 0.0166667 <- R10+R47 x2
+E8 0.0331169 <- C11+E2 x1
+E9 0.0287669 <- R6+R54 x2 reptile
+L1 0.0609769 <- E3+L28 x2
+L10 0.950901 <- L4+L8 x1 reptile
+L11 0.0555871 <- E26+E32 x2 reptile
+L12 0.0170924 <- R15+E33 x2
+L13 0.102881 <- E13+E37 x2
+L14 0.00490196 <- direct
+L15 0.0900073 <- C11+L12 x1
+L17 0.0290553 <- C11+L14 x1
+L18 0.450036 <- L15+L15 x2
+L2 0.0211485 <- E3+L14 x2
+L20 0.227291 <- C11+L15 x2
+L21 0.0666667 <- direct
+L22 0.400000 <- direct
+L23 0.00892857 <- direct
+L24 0.250018 <- U46+L15 x2
+L25 0.132353 <- E16+L27 x2
+L26 0.0491883 <- C11+L23 x1
+L27 0.00238095 <- direct
+L28 0.0208333 <- direct
+L29 0.0333333 <- E26+L8 x2 reptile
+L3 0.0148459 <- E3+L27 x2
+L30 0.200000 <- direct
+L31 0.0309524 <- U46+L27 x2
+L32 0.0256548 <- C30+L23 x2
+L33 0.200000 <- direct
+L34 0.0833333 <- L27+L31 x2
+L35 1.02917 <- L4+L32 x1 reptile
+L36 0.725018 <- L15+L30 x2
+L38 0.152604 <- R85+E23 x2
+L39 0.725018 <- L15+L33 x2
+L4 0.900901 <- direct
+L40 0.0490196 <- direct
+L41 0.128274 <- L32+L32 x2
+L42 3.62509 <- L36+L39 x2
+L44 0.335530 <- L3+L41 x2
+L45 1.17936 <- direct
+L46 0.0666667 <- direct
+L47 0.0712121 <- C11+L29 x1 reptile
+L49 0.100000 <- direct
+L5 0.0468424 <- C11+L2 x1
+L54 1.11111 <- direct
+L57 5.68751 <- direct
+L6 0.0718657 <- E30+E33 x2 reptile
+L60 0.116667 <- direct
+L7 0.950206 <- E22+E34 x2 reptile
+L8 0.0250000 <- E26+E35 x2 reptile
+L9 0.0342373 <- C11+L3 x1
+R1 0.00849673 <- R10+E33 x2
+R10 0.00222222 <- direct
+R11 0.0125000 <- direct
+R13 0.738460 <- C10+R60 x2
+R15 0.00566047 <- C9+R6 x2
+R16 0.0156566 <- C11+R10 x1
+R18 0.00208333 <- direct
+R19 0.185185 <- direct
+R2 0.0140523 <- R5+E33 x2
+R21 0.00222222 <- direct
+R22 0.0208333 <- C10+L27 x2
+R23 0.0138889 <- direct
+R24 0.0156566 <- C11+R21 x1
+R25 0.166667 <- direct
+R26 0.0739899 <- C11+R23 x1
+R27 0.0828283 <- C11+R24 x1
+R29 0.0138889 <- direct
+R3 0.00549220 <- R6+E33 x2
+R30 0.0167022 <- R6+R15 x2
+R31 0.00416667 <- direct
+R32 0.0500000 <- direct
+R33 0.0166717 <- C6+U6 x2
+R34 0.0501701 <- R6+R79 x2
+R35 0.254545 <- C11+R32 x1
+R36 0.00189394 <- direct
+R37 0.333333 <- direct
+R38 0.0214500 <- direct
+R39 0.00146199 <- direct
+R4 0.0213203 <- U20+U25 x2
+R40 0.908211 <- R39+L4 x1 reptile
+R42 0.0118554 <- C11+R39 x1
+R43 0.0275825 <- U40+R10 x2
+R44 0.00476190 <- direct
+R45 0.0638224 <- C11+R42 x1
+R46 0.160402 <- C45+C55 x2
+R47 0.0111111 <- U11+R10 x2
+R49 0.0141251 <- C4+R6 x2
+R5 0.0111111 <- U11+R10 x2
+R50 0.00520833 <- direct
+R51 0.0446203 <- C6+R33 x2
+R52 0.0133578 <- C6+E34 x2
+R53 0.0305871 <- C11+R50 x1
+R54 0.0262159 <- R6+R9 x2 reptile
+R55 0.0713347 <- C11+R52 x1
+R56 0.0151515 <- direct
+R57 0.0569773 <- C11+R54 x1 reptile
+R58 0.0275510 <- U46+R6 x2
+R59 0.0138889 <- direct
+R6 0.00102041 <- direct
+R60 0.289432 <- C11+R57 x1
+R61 0.970345 <- R59+L4 x1 reptile
+R62 0.227137 <- U69+L26 x2
+R63 0.0544840 <- direct
+R64 0.142301 <- C11+R58 x1
+R65 0.0137255 <- U91+R10 x2
+R66 0.0833333 <- direct
+R67 0.0166667 <- direct
+R68 0.0731729 <- C11+R65 x1
+R69 0.0555556 <- direct
+R7 0.0215389 <- C11+R1 x1
+R70 0.130383 <- U79+R54 x2 reptile
+R72 0.0277778 <- direct
+R73 0.0833333 <- direct
+R74 0.0104167 <- direct
+R75 0.0222222 <- direct
+R76 0.0416667 <- direct
+R77 0.0190476 <- direct
+R78 0.0266667 <- direct
+R79 0.0190476 <- direct
+R8 0.0129870 <- C35+U20 x2 reptile
+R80 0.0138889 <- direct
+R81 0.0489899 <- C11+R75 x1 reptile
+R82 0.0166667 <- direct
+R83 0.0100000 <- direct
+R84 0.249495 <- C11+R81 x1
+R85 0.0100000 <- direct
+R86 0.0333333 <- direct
+R87 0.950901 <- R85+L4 x1 reptile
+R88 0.0100000 <- direct
+R89 0.0100000 <- direct
+R9 0.0236649 <- U21+R6 x2 reptile
+R91 0.0545455 <- C11+R88 x1
+R92 0.0416667 <- direct
+R94 0.984234 <- R92+L4 x1 reptile
+R95 0.0166667 <- direct
+R97 0.0100000 <- direct
+U1 0.0107210 <- U91+R6 x2
+U10 0.0259874 <- C11+U1 x1
+U100 0.0205761 <- direct
+U103 0.0205761 <- direct
+U106 1.00378 <- U103+L4 x1 reptile
+U11 0.00555556 <- direct
+U12 0.00148810 <- direct
+U14 0.00289855 <- direct
+U15 0.00146199 <- direct
+U16 0.0666667 <- direct
+U17 0.0190382 <- C11+U14 x1
+U18 0.00136612 <- direct
+U19 0.0205761 <- direct
+U2 0.00493197 <- U20+R6 x2
+U20 0.000952381 <- direct
+U21 0.0211139 <- U9+R6 x2 reptile
+U22 0.0205761 <- direct
+U23 0.00555556 <- direct
+U24 0.0113761 <- C11+U18 x1
+U25 0.00757576 <- direct
+U26 0.0156566 <- C11+U23 x1
+U27 0.00537634 <- direct
+U28 0.333333 <- direct
+U29 0.0287356 <- direct
+U3 0.00596632 <- U18+R6 x2
+U30 0.00208333 <- direct
+U31 0.00757576 <- direct
+U32 0.00347222 <- direct
+U33 0.00175439 <- direct
+U34 0.0273810 <- U20+U46 x2
+U36 0.00177305 <- direct
+U38 0.00166667 <- direct
+U39 0.00810658 <- U11+R6 x2
+U4 0.333333 <- direct
+U40 0.00881076 <- C36+R10 x2
+U41 0.0128788 <- C11+U38 x1
+U42 0.0138889 <- direct
+U43 0.0148148 <- direct
+U44 0.0689394 <- C11+U41 x1
+U45 0.00833333 <- direct
+U46 0.0100000 <- direct
+U47 0.942568 <- U45+L4 x1 reptile
+U48 0.0266667 <- direct
+U49 0.00888889 <- direct
+U5 0.00690236 <- C11+C27 x2
+U50 0.00444444 <- direct
+U51 0.0125000 <- direct
+U52 0.0238095 <- direct
+U53 0.0104167 <- direct
+U55 0.0100000 <- direct
+U56 0.00833333 <- direct
+U57 0.333333 <- direct
+U58 0.0142857 <- direct
+U59 0.00368189 <- direct
+U6 0.00549220 <- C6+R6 x2
+U60 0.0134107 <- C11+U36 x1
+U61 0.0166667 <- direct
+U62 0.00125000 <- direct
+U63 0.0715990 <- C11+U60 x1
+U64 0.0222222 <- direct
+U65 0.00555556 <- direct
+U67 0.0341751 <- C11+U43 x1
+U68 0.00125000 <- direct
+U69 0.0416667 <- direct
+U7 0.0178221 <- C6+C10 x2
+U70 0.907151 <- U68+L4 x1 reptile
+U71 0.00555556 <- direct
+U72 0.0416667 <- direct
+U75 0.0416667 <- direct
+U76 0.0666667 <- direct
+U78 0.212879 <- C11+U75 x1
+U79 0.0416667 <- direct
+U8 0.0128788 <- C11+C35 x2 reptile
+U82 0.333333 <- direct
+U85 0.333333 <- direct
+U88 0.0500000 <- direct
+U9 0.0185628 <- C10+U59 x2 reptile
+U91 0.00326797 <- direct
+U94 0.0205761 <- direct
+U97 0.0205761 <- direct"
+`;
+
+exports[`computeMinCosts > pins the cost of every shard — kuudraAndBait 1`] = `
+"C1 0.0103938 <- C37+U20 x2
+C10 0.00595238 <- direct
+C11 0.000909091 <- direct
+C12 0.00143678 <- direct
+C13 0.0205761 <- direct
+C14 0.00909091 <- C11+C11 x1
+C15 0.00151515 <- direct
+C16 0.0171537 <- C10+C11 x2
+C17 0.00370370 <- direct
+C18 0.0121212 <- C11+C15 x1
+C19 0.0666667 <- direct
+C2 0.00465368 <- C11+U20 x2
+C20 0.00877193 <- direct
+C21 0.00151515 <- direct
+C22 10.3334 <- direct
+C23 0.00833333 <- direct
+C24 0.0260417 <- direct
+C25 0.0500000 <- direct
+C26 0.00100000 <- direct
+C27 0.00185185 <- direct
+C28 0.0205761 <- direct
+C29 0.00185185 <- direct
+C3 0.00532213 <- C6+U20 x2
+C30 0.00133333 <- direct
+C31 0.107426 <- C11+C28 x1
+C32 0.00341006 <- direct
+C33 0.00333333 <- direct
+C34 0.0272727 <- C11+U46 x2
+C35 0.0106061 <- C11+C23 x2
+C36 0.00130208 <- direct
+C37 0.00320513 <- direct
+C38 0.00606061 <- direct
+C39 0.0110559 <- C11+C36 x1
+C4 0.00462963 <- direct
+C40 0.0205711 <- C11+C37 x1
+C41 0.00714286 <- direct
+C42 0.0102564 <- direct
+C43 0.00595238 <- direct
+C44 0.00166667 <- direct
+C45 0.0558275 <- C11+C42 x1
+C46 0.0125000 <- direct
+C47 0.00289855 <- direct
+C49 0.00520833 <- direct
+C5 0.000952381 <- direct
+C52 0.00833333 <- direct
+C55 0.00833333 <- direct
+C56 0.00125000 <- direct
+C58 0.0384615 <- direct
+C6 0.00117647 <- direct
+C61 0.00347222 <- direct
+C64 0.0219066 <- C11+C61 x1
+C67 0.114078 <- C11+C64 x1
+C7 0.00925926 <- direct
+C8 0.00952381 <- C5+C5 x1
+C9 0.00124378 <- direct
+E1 0.0163690 <- E34+L27 x2
+E10 4.76746 <- R10+R61 x2 reptile
+E11 0.0389205 <- R53+E26 x2 reptile
+E12 0.0223326 <- C11+E3 x1
+E13 0.0205761 <- direct
+E14 0.0196078 <- direct
+E15 0.116208 <- C11+E12 x1
+E16 0.0505602 <- R79+E33 x2
+E17 0.0437611 <- C11+E14 x1
+E18 0.00222222 <- direct
+E19 0.0145153 <- C4+E33 x2
+E2 0.0142857 <- E26+L27 x2 reptile
+E20 0.121655 <- direct
+E21 0.0156566 <- C11+E18 x1
+E22 4.77302 <- R10+E10 x2 reptile
+E23 0.0510417 <- R74+R83 x2
+E24 0.0828283 <- C11+E21 x1
+E25 8.00000 <- direct
+E26 0.00833333 <- direct
+E27 0.0117647 <- direct
+E28 0.0279412 <- U46+E33 x2
+E3 0.00889356 <- E33+L27 x2
+E30 0.0689245 <- R6+E6 x2 reptile
+E31 0.0205761 <- direct
+E32 0.0472538 <- E11+E26 x2 reptile
+E33 0.00117647 <- direct
+E34 0.00416667 <- direct
+E35 0.0166667 <- E26+E26 x2 reptile
+E36 0.00588235 <- E33+E33 x2
+E37 0.0205761 <- direct
+E39 0.0104278 <- C11+E33 x1
+E4 0.0214904 <- U25+R6 x2
+E42 0.0566845 <- C11+E39 x1
+E43 0.0125000 <- direct
+E44 0.0212121 <- C11+E26 x1 reptile
+E45 0.0277778 <- direct
+E46 124.000 <- direct
+E47 0.110606 <- C11+E44 x1
+E48 0.0104167 <- direct
+E49 1.00251 <- direct
+E5 0.0189394 <- C35+E26 x2 reptile
+E51 0.0416667 <- direct
+E52 0.166667 <- direct
+E54 0.0416667 <- direct
+E57 0.0583431 <- direct
+E58 0.00694444 <- direct
+E6 0.0663735 <- R6+R45 x2 reptile
+E60 0.0290360 <- direct
+E63 0.0535714 <- R77+L27 x2
+E66 0.125000 <- direct
+E7 0.0166667 <- R10+R47 x2
+E8 0.0331169 <- C11+E2 x1
+E9 0.0287669 <- R6+R54 x2 reptile
+L1 0.0609769 <- E3+L28 x2
+L10 310.007 <- E46+L27 x2
+L11 0.0555871 <- E26+E32 x2 reptile
+L12 0.0170924 <- R15+E33 x2
+L13 0.102881 <- E13+E37 x2
+L14 0.00490196 <- direct
+L15 0.0541881 <- direct
+L17 0.0290553 <- C11+L14 x1
+L18 0.270941 <- L15+L15 x2
+L2 0.0211485 <- E3+L14 x2
+L20 0.137743 <- C11+L15 x2
+L21 0.0666667 <- direct
+L22 0.400000 <- direct
+L23 0.0892857 <- direct
+L24 0.160470 <- U46+L15 x2
+L25 0.132353 <- E16+L27 x2
+L26 0.149822 <- C11+L17 x1
+L27 0.00238095 <- direct
+L28 0.0208333 <- direct
+L29 0.0333333 <- E26+L8 x2 reptile
+L3 0.0148459 <- E3+L27 x2
+L30 0.200000 <- direct
+L31 0.0309524 <- U46+L27 x2
+L32 0.226548 <- C30+L23 x2
+L33 0.200000 <- direct
+L34 0.0833333 <- L27+L31 x2
+L35 2.61043 <- U79+E49 x2
+L36 0.635470 <- L15+L30 x2
+L38 0.152604 <- R85+E23 x2
+L39 0.635470 <- L15+L33 x2
+L4 Infinity <- direct
+L40 0.0490196 <- direct
+L41 1.13274 <- L32+L32 x2
+L42 3.17735 <- L36+L39 x2
+L44 2.84669 <- L3+L41 x2
+L45 1.17936 <- direct
+L46 0.0666667 <- direct
+L47 0.0712121 <- C11+L29 x1 reptile
+L49 0.100000 <- direct
+L5 0.0468424 <- C11+L2 x1
+L54 1.11111 <- direct
+L57 5.68751 <- direct
+L6 0.0718657 <- E30+E33 x2 reptile
+L60 0.116667 <- direct
+L7 4.78343 <- E22+E34 x2 reptile
+L8 0.0250000 <- E26+E35 x2 reptile
+L9 0.0342373 <- C11+L3 x1
+R1 0.00849673 <- R10+E33 x2
+R10 0.00222222 <- direct
+R11 0.0125000 <- direct
+R13 0.738460 <- C10+R60 x2
+R15 0.00566047 <- C9+R6 x2
+R16 0.0156566 <- C11+R10 x1
+R18 0.00208333 <- direct
+R19 0.185185 <- direct
+R2 0.0140523 <- R5+E33 x2
+R21 0.00222222 <- direct
+R22 0.0208333 <- C10+L27 x2
+R23 0.0670455 <- C11+R11 x1
+R24 0.0156566 <- C11+R21 x1
+R25 0.166667 <- direct
+R26 0.161374 <- direct
+R27 0.0828283 <- C11+R24 x1
+R29 0.277778 <- direct
+R3 0.00549220 <- R6+E33 x2
+R30 0.0167022 <- R6+R15 x2
+R31 0.00416667 <- direct
+R32 0.0500000 <- direct
+R33 0.0166717 <- C6+U6 x2
+R34 0.0501701 <- R6+R79 x2
+R35 0.254545 <- C11+R32 x1
+R36 0.00189394 <- direct
+R37 0.333333 <- direct
+R38 0.0214500 <- direct
+R39 0.00146199 <- direct
+R4 0.0213203 <- U20+U25 x2
+R40 4.00000 <- direct
+R42 0.0118554 <- C11+R39 x1
+R43 0.0275825 <- U40+R10 x2
+R44 0.00476190 <- direct
+R45 0.0638224 <- C11+R42 x1
+R46 0.160402 <- C45+C55 x2
+R47 0.0111111 <- U11+R10 x2
+R49 0.0141251 <- C4+R6 x2
+R5 0.0111111 <- U11+R10 x2
+R50 0.00520833 <- direct
+R51 0.0446203 <- C6+R33 x2
+R52 0.0133578 <- C6+E34 x2
+R53 0.0305871 <- C11+R50 x1
+R54 0.0262159 <- R6+R9 x2 reptile
+R55 0.0713347 <- C11+R52 x1
+R56 0.0151515 <- direct
+R57 0.0569773 <- C11+R54 x1 reptile
+R58 0.0275510 <- U46+R6 x2
+R59 0.0803030 <- C11+R56 x1
+R6 0.00102041 <- direct
+R60 0.289432 <- C11+R57 x1
+R61 4.76190 <- direct
+R62 0.478721 <- U69+L26 x2
+R63 0.0544840 <- direct
+R64 0.142301 <- C11+R58 x1
+R65 0.0137255 <- U91+R10 x2
+R66 0.0833333 <- direct
+R67 0.0166667 <- direct
+R68 0.0731729 <- C11+R65 x1
+R69 0.0555556 <- direct
+R7 0.0215389 <- C11+R1 x1
+R70 0.130383 <- U79+R54 x2 reptile
+R72 0.0277778 <- direct
+R73 0.0833333 <- direct
+R74 0.0104167 <- direct
+R75 0.0222222 <- direct
+R76 0.0416667 <- direct
+R77 0.0190476 <- direct
+R78 0.0266667 <- direct
+R79 0.0190476 <- direct
+R8 0.0129870 <- C35+U20 x2 reptile
+R80 0.0138889 <- direct
+R81 0.0489899 <- C11+R75 x1 reptile
+R82 0.0166667 <- direct
+R83 0.0100000 <- direct
+R84 0.249495 <- C11+R81 x1
+R85 0.0100000 <- direct
+R86 0.0333333 <- direct
+R87 4.00000 <- direct
+R88 0.0100000 <- direct
+R89 0.0100000 <- direct
+R9 0.0236649 <- U21+R6 x2 reptile
+R91 0.0545455 <- C11+R88 x1
+R92 0.0416667 <- direct
+R94 20.6667 <- direct
+R95 0.0166667 <- direct
+R97 0.0100000 <- direct
+U1 0.0107210 <- U91+R6 x2
+U10 0.0259874 <- C11+U1 x1
+U100 0.0205761 <- direct
+U103 0.0205761 <- direct
+U106 13.7778 <- direct
+U11 0.00555556 <- direct
+U12 0.00148810 <- direct
+U14 0.00289855 <- direct
+U15 0.00146199 <- direct
+U16 0.0666667 <- direct
+U17 0.0190382 <- C11+U14 x1
+U18 0.00136612 <- direct
+U19 0.0205761 <- direct
+U2 0.00493197 <- U20+R6 x2
+U20 0.000952381 <- direct
+U21 0.0211139 <- U9+R6 x2 reptile
+U22 0.0205761 <- direct
+U23 0.00555556 <- direct
+U24 0.0113761 <- C11+U18 x1
+U25 0.00757576 <- direct
+U26 0.0156566 <- C11+U23 x1
+U27 0.00537634 <- direct
+U28 0.333333 <- direct
+U29 0.0287356 <- direct
+U3 0.00596632 <- U18+R6 x2
+U30 0.00208333 <- direct
+U31 0.00757576 <- direct
+U32 0.00347222 <- direct
+U33 0.00175439 <- direct
+U34 0.0273810 <- U20+U46 x2
+U36 0.00177305 <- direct
+U38 0.00166667 <- direct
+U39 0.00810658 <- U11+R6 x2
+U4 0.333333 <- direct
+U40 0.00881076 <- C36+R10 x2
+U41 0.0128788 <- C11+U38 x1
+U42 0.0138889 <- direct
+U43 0.0148148 <- direct
+U44 0.0689394 <- C11+U41 x1
+U45 0.00833333 <- direct
+U46 0.0100000 <- direct
+U47 2.40000 <- direct
+U48 0.0266667 <- direct
+U49 0.00888889 <- direct
+U5 0.00690236 <- C11+C27 x2
+U50 0.00444444 <- direct
+U51 0.0125000 <- direct
+U52 0.0238095 <- direct
+U53 0.0104167 <- direct
+U55 0.0100000 <- direct
+U56 0.00833333 <- direct
+U57 0.333333 <- direct
+U58 0.0142857 <- direct
+U59 0.00368189 <- direct
+U6 0.00549220 <- C6+R6 x2
+U60 0.0134107 <- C11+U36 x1
+U61 0.0166667 <- direct
+U62 0.00125000 <- direct
+U63 0.0715990 <- C11+U60 x1
+U64 0.0222222 <- direct
+U65 0.00555556 <- direct
+U67 0.0341751 <- C11+U43 x1
+U68 0.00125000 <- direct
+U69 0.0416667 <- direct
+U7 0.0178221 <- C6+C10 x2
+U70 2.40000 <- direct
+U71 0.00555556 <- direct
+U72 0.0416667 <- direct
+U75 0.0416667 <- direct
+U76 0.0666667 <- direct
+U78 0.212879 <- C11+U75 x1
+U79 0.0416667 <- direct
+U8 0.0128788 <- C11+C35 x2 reptile
+U82 0.333333 <- direct
+U85 0.333333 <- direct
+U88 0.0500000 <- direct
+U9 0.0185628 <- C10+U59 x2 reptile
+U91 0.00326797 <- direct
+U94 0.0205761 <- direct
+U97 0.0205761 <- direct"
+`;
+
+exports[`computeMinCosts > pins the cost of every shard — maxed 1`] = `
+"C1 0.00190726 <- C37+R6 x2
+C10 0.00128839 <- direct
+C11 0.000196773 <- direct
+C12 0.0000946908 <- direct
+C13 0.00445371 <- direct
+C14 0.00120025 <- direct
+C15 0.0000998558 <- direct
+C16 0.00334828 <- C10+U59 x2 reptile
+C17 0.000801667 <- direct
+C18 0.000909135 <- C9+C15 x1
+C19 0.0666667 <- direct
+C2 0.000664813 <- C11+R6 x2
+C20 0.000953885 <- direct
+C21 0.0000998558 <- direct
+C22 0.751167 <- C21+L4 x1 reptile
+C23 0.00180375 <- direct
+C24 0.00561618 <- C9+U46 x2
+C25 0.0108225 <- direct
+C26 0.000216450 <- direct
+C27 0.000201376 <- direct
+C28 0.00445371 <- direct
+C29 0.000400834 <- direct
+C3 0.000377809 <- C9+R6 x2
+C30 0.0000878731 <- direct
+C31 0.0198854 <- C28+U59 x1 reptile
+C32 0.000738108 <- direct
+C33 0.000219683 <- direct
+C34 0.00517350 <- U46+U59 x2 reptile
+C35 0.00207836 <- C23+U38 x2
+C36 0.0000858136 <- direct
+C37 0.000693751 <- direct
+C38 0.00131182 <- direct
+C39 0.000838924 <- C9+C36 x1
+C4 0.00100208 <- direct
+C40 0.00387861 <- C9+C37 x1
+C41 0.00154607 <- direct
+C42 0.00222000 <- direct
+C43 0.00128839 <- direct
+C44 0.000360750 <- direct
+C45 0.00460447 <- C9+C39 x1
+C46 0.00270563 <- direct
+C47 0.000627392 <- direct
+C49 0.00112734 <- direct
+C5 0.000206143 <- direct
+C52 0.00180375 <- direct
+C55 0.00180375 <- direct
+C56 0.000270563 <- direct
+C58 0.00832501 <- direct
+C6 0.000254647 <- direct
+C61 0.000751563 <- direct
+C64 0.00410358 <- C61+R6 x1
+C67 0.0184265 <- C64+U59 x1 reptile
+C7 0.00200417 <- direct
+C8 0.00137648 <- C5+R6 x1
+C9 0.0000819712 <- direct
+E1 0.00299465 <- E34+L27 x2
+E10 0.636907 <- R31+R61 x2 reptile
+E11 0.00663976 <- R53+E26 x2 reptile
+E12 0.00211434 <- R6+E3 x1
+E13 0.00456234 <- direct
+E14 0.00219254 <- direct
+E15 0.0101380 <- U59+E12 x1 reptile
+E16 0.00967719 <- R22+E26 x2 reptile
+E17 0.00473083 <- R6+E14 x1
+E18 0.000150598 <- direct
+E19 0.00270453 <- C4+E33 x2
+E2 0.00211060 <- E26+L27 x2 reptile
+E20 0.0136033 <- direct
+E21 0.00109875 <- R6+E18 x1
+E22 0.531344 <- R31+E10 x2 reptile
+E23 0.0113174 <- R74+R83 x2
+E24 0.00583953 <- R6+E21 x1
+E25 0.775082 <- E24+L4 x1 reptile
+E26 0.00184775 <- direct
+E27 0.00260858 <- direct
+E28 0.00561058 <- U46+E33 x2
+E3 0.000884290 <- E33+L27 x2
+E30 0.00342490 <- R6+E6 x2 reptile
+E31 0.00456234 <- direct
+E32 0.00707292 <- E11+E26 x2 reptile
+E33 0.0000797286 <- direct
+E34 0.000923873 <- direct
+E35 0.00292297 <- R5+E26 x2 reptile
+E36 0.000398643 <- E33+E33 x2
+E37 0.00456234 <- direct
+E39 0.000744404 <- R6+E33 x1
+E4 0.00427232 <- U25+R6 x2
+E42 0.00406778 <- R6+E39 x1
+E43 0.00277162 <- direct
+E44 0.00336771 <- R6+E26 x1 reptile
+E45 0.00615915 <- direct
+E46 0.762299 <- E43+L4 x1 reptile
+E47 0.0153604 <- U59+E44 x1 reptile
+E48 0.00230968 <- direct
+E49 0.222285 <- direct
+E5 0.00293554 <- R5+R8 x2 reptile
+E51 0.00923873 <- direct
+E52 0.0369549 <- direct
+E54 0.00923873 <- direct
+E57 0.0129364 <- direct
+E58 0.00153979 <- direct
+E6 0.00393700 <- R6+R45 x2 reptile
+E60 0.00643814 <- direct
+E63 0.0112435 <- R77+L27 x2
+E66 0.0277162 <- direct
+E7 0.00236575 <- R31+R47 x2
+E8 0.00456695 <- R6+E2 x1
+E9 0.00206226 <- R6+R54 x2 reptile
+L1 0.0127214 <- E3+L28 x2
+L10 0.757377 <- L4+L8 x1 reptile
+L11 0.00743389 <- E26+E32 x2 reptile
+L12 0.00114384 <- R15+E33 x2
+L13 0.0228117 <- E13+E37 x2
+L14 0.00111408 <- direct
+L15 0.00606498 <- R6+L12 x1
+L17 0.00373135 <- direct
+L18 0.0303249 <- L15+L15 x2
+L2 0.00366950 <- E3+L14 x2
+L20 0.0132995 <- U59+L15 x2 reptile
+L21 0.0151515 <- direct
+L22 0.0909091 <- direct
+L23 0.00202922 <- direct
+L24 0.0205737 <- U46+L15 x2
+L25 0.0226776 <- E16+L6 x2 reptile
+L26 0.00978333 <- U59+L23 x1 reptile
+L27 0.000273988 <- direct
+L28 0.00473485 <- direct
+L29 0.00485278 <- E26+L8 x2 reptile
+L3 0.00156926 <- E3+L27 x2
+L30 0.200000 <- direct
+L31 0.00609622 <- U46+L27 x2
+L32 0.00529273 <- C30+L23 x2
+L33 0.200000 <- direct
+L34 0.0152173 <- L6+L31 x2 reptile
+L35 0.578260 <- U79+E49 x2
+L36 0.515162 <- L15+L30 x2
+L38 0.0338368 <- R85+E23 x2
+L39 0.515162 <- L15+L33 x2
+L4 0.900901 <- direct
+L40 0.0111408 <- direct
+L41 0.0264637 <- L32+L32 x2
+L42 2.57581 <- L36+L39 x2
+L44 0.0677284 <- L3+L41 x2
+L45 0.268036 <- direct
+L46 0.0151515 <- direct
+L47 0.00837611 <- R6+L29 x1 reptile
+L49 0.0227273 <- direct
+L5 0.00744407 <- U59+L2 x1 reptile
+L54 0.252525 <- direct
+L57 1.29261 <- direct
+L6 0.00302018 <- E30+E33 x2 reptile
+L60 0.0265152 <- direct
+L7 0.444711 <- E22+E34 x2 reptile
+L8 0.00397559 <- E26+E35 x2 reptile
+L9 0.00348428 <- R6+L3 x1
+R1 0.000905251 <- R31+E33 x2
+R10 0.000492732 <- direct
+R11 0.00277162 <- direct
+R13 0.0495053 <- C10+R60 x2
+R15 0.000377809 <- C9+R6 x2
+R16 0.00280942 <- R6+R10 x1
+R18 0.000232957 <- direct
+R19 0.0410610 <- direct
+R2 0.00171846 <- R8+E33 x2 reptile
+R21 0.000248487 <- direct
+R22 0.00390595 <- C10+L27 x2
+R23 0.00307958 <- direct
+R24 0.00158820 <- R6+R21 x1
+R25 0.166667 <- direct
+R26 0.0141598 <- U59+R23 x1 reptile
+R27 0.00794573 <- U59+R24 x1 reptile
+R29 0.00307958 <- direct
+R3 0.000372202 <- R6+E33 x2
+R30 0.00111740 <- R6+R15 x2
+R31 0.000282372 <- direct
+R32 0.0110865 <- direct
+R33 0.00112983 <- U6+E33 x2
+R34 0.00967719 <- R22+E26 x2 reptile
+R35 0.0475219 <- U59+R32 x1 reptile
+R36 0.000128351 <- direct
+R37 0.0739098 <- direct
+R38 0.00239853 <- direct
+R39 0.0000990779 <- direct
+R4 0.00408032 <- U25+U59 x2 reptile
+R40 0.751164 <- R39+L4 x1 reptile
+R42 0.000841151 <- R6+R39 x1
+R43 0.00484774 <- U40+R10 x2
+R44 0.00105585 <- direct
+R45 0.00455152 <- R6+R42 x1
+R46 0.0160206 <- C45+C55 x2
+R47 0.00165982 <- C20+R31 x2
+R49 0.00175762 <- R6+R31 x1
+R5 0.00165982 <- C20+R31 x2
+R50 0.00115484 <- direct
+R51 0.00302389 <- R33+E33 x2
+R52 0.00250900 <- E33+E34 x2
+R53 0.00611997 <- R6+R50 x1
+R54 0.00230183 <- R6+R9 x2 reptile
+R55 0.0117824 <- U59+R52 x1 reptile
+R56 0.00169423 <- direct
+R57 0.00412452 <- R6+R54 x1 reptile
+R58 0.00558414 <- U46+R6 x2
+R59 0.00307958 <- direct
+R6 0.0000691523 <- direct
+R60 0.0185137 <- U59+R57 x1 reptile
+R61 0.763582 <- R59+L4 x1 reptile
+R62 0.0470052 <- U69+L26 x2
+R63 0.0120807 <- direct
+R64 0.0267312 <- C35+R58 x1 reptile
+R65 0.00300021 <- U91+R10 x2
+R66 0.0184775 <- direct
+R67 0.00369549 <- direct
+R68 0.0138291 <- U59+R65 x1 reptile
+R69 0.0123183 <- direct
+R7 0.00215626 <- R1+R6 x1
+R70 0.0207073 <- U79+R54 x2 reptile
+R72 0.00615915 <- direct
+R73 0.0184775 <- direct
+R74 0.00230968 <- direct
+R75 0.00492732 <- direct
+R76 0.00923873 <- direct
+R77 0.00422342 <- direct
+R78 0.00591279 <- direct
+R79 0.00422342 <- direct
+R8 0.00186284 <- U8+U38 x2 reptile
+R80 0.00307958 <- direct
+R81 0.00850034 <- R6+R75 x1 reptile
+R82 0.00369549 <- direct
+R83 0.00221729 <- direct
+R84 0.0367463 <- U59+R81 x1 reptile
+R85 0.00221729 <- direct
+R86 0.00739098 <- direct
+R87 0.759989 <- R85+L4 x1 reptile
+R88 0.00221729 <- direct
+R89 0.00221729 <- direct
+R9 0.00258931 <- U21+R6 x2 reptile
+R91 0.0105670 <- U59+R88 x1 reptile
+R92 0.00923873 <- direct
+R94 0.766149 <- R92+L4 x1 reptile
+R95 0.00369549 <- direct
+R97 0.00221729 <- direct
+U1 0.00194126 <- U91+R6 x2
+U10 0.00422829 <- U1+R6 x1
+U100 0.00445371 <- direct
+U103 0.00445371 <- direct
+U106 0.769308 <- U103+L4 x1 reptile
+U11 0.00120250 <- direct
+U12 0.0000980726 <- direct
+U14 0.000627392 <- direct
+U15 0.0000963521 <- direct
+U16 0.0666667 <- direct
+U17 0.00348272 <- U14+R6 x1
+U18 0.0000900339 <- direct
+U19 0.00445371 <- direct
+U2 0.000447484 <- U38+R6 x2
+U20 0.000206143 <- direct
+U21 0.00293430 <- U9+R6 x2 reptile
+U22 0.00445371 <- direct
+U23 0.00120250 <- direct
+U24 0.000860025 <- C9+U18 x1
+U25 0.00163977 <- direct
+U26 0.00281486 <- C9+U23 x1
+U27 0.000584639 <- direct
+U28 0.333333 <- direct
+U29 0.00312480 <- direct
+U3 0.000397966 <- U18+R6 x2
+U30 0.000226548 <- direct
+U31 0.00163977 <- direct
+U32 0.000228836 <- direct
+U33 0.000115622 <- direct
+U34 0.00517350 <- U46+U59 x2 reptile
+U36 0.000116852 <- direct
+U38 0.000109841 <- direct
+U39 0.00112677 <- C20+R6 x2
+U4 0.333333 <- direct
+U40 0.00144636 <- C36+R10 x2
+U41 0.000894968 <- U38+R6 x1
+U42 0.00300625 <- direct
+U43 0.00320667 <- direct
+U44 0.00482060 <- U41+R6 x1
+U45 0.00180375 <- direct
+U46 0.00216450 <- direct
+U47 0.519481 <- direct
+U48 0.00577201 <- direct
+U49 0.00192400 <- direct
+U5 0.000778043 <- C27+U38 x2
+U50 0.000962001 <- direct
+U51 0.00270563 <- direct
+U52 0.00515358 <- direct
+U53 0.00225469 <- direct
+U55 0.00216450 <- direct
+U56 0.00180375 <- direct
+U57 0.0721501 <- direct
+U58 0.00309215 <- direct
+U59 0.000796945 <- direct
+U6 0.000372202 <- R6+E33 x2
+U60 0.000994118 <- C9+U36 x1
+U61 0.00360750 <- direct
+U62 0.000270563 <- direct
+U63 0.00538045 <- C9+U60 x1
+U64 0.00481000 <- direct
+U65 0.00112677 <- C20+R6 x2
+U67 0.00667269 <- U43+U59 x1 reptile
+U68 0.000270563 <- direct
+U69 0.00901876 <- direct
+U7 0.00342031 <- C10+E33 x2
+U70 0.519481 <- direct
+U71 0.00120250 <- direct
+U72 0.00901876 <- direct
+U75 0.00901876 <- direct
+U76 0.0144300 <- direct
+U78 0.0389064 <- U59+U75 x1 reptile
+U79 0.00901876 <- direct
+U8 0.00196080 <- C35+U38 x2 reptile
+U82 0.0721501 <- direct
+U85 0.0721501 <- direct
+U88 0.0108225 <- direct
+U9 0.00334828 <- C10+U59 x2 reptile
+U91 0.000707354 <- direct
+U94 0.00388253 <- U91+R6 x1
+U97 0.00445371 <- direct"
+`;

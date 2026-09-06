@@ -1,0 +1,186 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`calculateOptimalPath > pins the substituted tree and totals — C67 1`] = `
+{
+  "craftsNeeded": 176,
+  "remainingInventory": {
+    "C61": 0,
+    "U59": 0,
+  },
+  "totalQuantities": {
+    "C61": 355,
+    "U59": 176,
+  },
+  "totalTime": "0.407067",
+  "tree": [
+    "C67 recipe qty=40 crafts=34 [C64+U59 x1 reptile]",
+    "  C64 recipe qty=170 crafts=142 [C61+U59 x1 reptile]",
+    "    split:",
+    "      C61 inventory qty=355",
+    "      C61 direct qty=355",
+    "    split:",
+    "      U59 inventory qty=176",
+    "      U59 direct qty=108",
+    "  U59 direct qty=68",
+  ],
+}
+`;
+
+exports[`calculateOptimalPath > pins the substituted tree and totals — R94 1`] = `
+{
+  "craftsNeeded": 5,
+  "remainingInventory": {
+    "L4": 0,
+    "R92": 0,
+  },
+  "totalQuantities": {
+    "L4": 3,
+    "R92": 5,
+  },
+  "totalTime": "2.74890",
+  "tree": [
+    "R94 recipe qty=5 crafts=5 [R92+L4 x1 reptile]",
+    "  split:",
+    "    R92 inventory qty=5",
+    "    R92 direct qty=5",
+    "  split:",
+    "    L4 inventory qty=2",
+    "    L4 direct qty=3",
+  ],
+}
+`;
+
+exports[`calculateOptimalPath > pins the substituted tree and totals — U57 1`] = `
+{
+  "craftsNeeded": 0,
+  "remainingInventory": {
+    "U57": 0,
+  },
+  "totalQuantities": {
+    "U57": 6,
+  },
+  "totalTime": "0.432900",
+  "tree": [
+    "split:",
+    "  U57 inventory qty=6",
+    "  U57 direct qty=6",
+  ],
+}
+`;
+
+exports[`calculateOptimalPath > restructures onto an alternative recipe for shards the default path does not use 1`] = `
+{
+  "consumed": {},
+  "offPathOwned": [
+    "C1",
+    "C2",
+    "C3",
+    "C4",
+    "C5",
+    "C6",
+    "C7",
+    "C8",
+    "C9",
+    "C10",
+    "C11",
+    "C12",
+    "C13",
+    "C14",
+    "C15",
+    "C16",
+    "C17",
+    "C18",
+    "C19",
+    "C20",
+  ],
+  "plainTotalTime": "4.59689",
+  "totalQuantities": {
+    "L4": 5,
+    "R92": 10,
+  },
+  "totalTime": "4.59689",
+}
+`;
+
+exports[`calculateOptimalPath — cycle case > pins the cycle tree with inventory applied — net-negative 1`] = `
+{
+  "craftsNeeded": 78,
+  "totalQuantities": {
+    "C11": 90,
+    "C23": 18,
+    "C4": 3,
+  },
+  "totalTime": "0.245707",
+  "tree": [
+    "C1 cycle qty=100 crafts=42 mult=1.20000",
+    "  step C4 = C1+C1 x1",
+    "  step C1 = C4+U8 x2 reptile",
+    "  inputRecipe:",
+    "    split:",
+    "      C4 inventory qty=2",
+    "      C4 direct qty=3",
+    "  cycleInputs:",
+    "    U8 recipe qty=42 crafts=18 [C11+C35 x2 reptile]",
+    "      C11 inventory qty=90",
+    "      C35 recipe qty=36 crafts=18 [C11+C23 x2]",
+    "        C11 direct qty=90",
+    "        split:",
+    "          C23 inventory qty=18",
+    "          C23 direct qty=18",
+  ],
+}
+`;
+
+exports[`calculateOptimalPath — cycle case > pins the cycle tree with inventory applied — net-positive 1`] = `
+{
+  "craftsNeeded": 585,
+  "totalQuantities": {
+    "C11": 838,
+    "C23": 105,
+    "C4": 3,
+    "U20": 313,
+  },
+  "totalTime": "1.94880",
+  "tree": [
+    "C1 cycle qty=100 crafts=250 mult=1.20000",
+    "  step C4 = C1+C2 x1",
+    "  step C1 = C4+U8 x2 reptile",
+    "  inputRecipe:",
+    "    split:",
+    "      C4 inventory qty=2",
+    "      C4 direct qty=3",
+    "  cycleInputs:",
+    "    C2 recipe qty=250 crafts=125 [C11+U20 x2]",
+    "      C11 inventory qty=625",
+    "      split:",
+    "        U20 inventory qty=312",
+    "        U20 direct qty=313",
+    "    U8 recipe qty=250 crafts=105 [C11+C35 x2 reptile]",
+    "      split:",
+    "        C11 inventory qty=212",
+    "        C11 direct qty=313",
+    "      C35 recipe qty=210 crafts=105 [C11+C23 x2]",
+    "        C11 direct qty=525",
+    "        split:",
+    "          C23 inventory qty=105",
+    "          C23 direct qty=105",
+  ],
+}
+`;
+
+exports[`calculateOptimalPath — whole shard quantities > splits Condor into whole segments that add up — reported Dodo case 1`] = `
+[
+  "L34 recipe qty=2 crafts=1 [L6+L31 x2 reptile]",
+  "  L6 inventory qty=2",
+  "  split:",
+  "    L31 recipe qty=2 crafts=1 [C24+L6 x2 reptile]",
+  "      C24 inventory qty=5",
+  "      L6 inventory qty=2",
+  "    L31 recipe qty=2 crafts=1 [C24+L29 x2 reptile]",
+  "      C24 inventory qty=5",
+  "      L29 inventory qty=2",
+  "    L31 recipe qty=1 crafts=1 [C24+L47 x2 reptile]",
+  "      C24 inventory qty=5",
+  "      L47 inventory qty=2",
+]
+`;
