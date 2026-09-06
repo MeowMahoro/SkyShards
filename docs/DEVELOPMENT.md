@@ -13,6 +13,7 @@
   3. 价格体系：DataService 单例缓存 `/bazaar` 响应，跨页面共享；套利页可用 forceRefresh 拉新。
 - 当前进度/下一步：套利主链路已验证通过，暂无阻塞项；待办见 §10。
 - 最近一次验证（2026-09-06）：`d:/Code/.playwright-cli/pwcheck.cjs` 真机点击 Molthorn 行，展开断言 `income/fusionPath/materials` 全 true，截图 `arb-detail.png` 已存。
+- **2026-09-06 已发布**：代码推送至 `github.com/MeowMahoro/SkyShards`（master，本地 git 仓库，首个提交 a9fef01）；GitHub Pages 已上线 `https://meowmahoro.github.io/SkyShards/`（Actions workflow 部署，验证 200 + /SkyShards/ 资源前缀 + 深链兜底正常）。详见附录。
 
 ---
 
